@@ -1,84 +1,58 @@
-// 💳 Example products (replace images with your Carousell ones)
+// Sample products
 const products = [
-  {
-    id: "1",
-    name: "Charizard EX",
-    price: 29.99,
-    image: "https://images.pokemontcg.io/swsh12/9_hires.png"
-  },
-  {
-    id: "2",
-    name: "Pikachu VMAX",
-    price: 19.99,
-    image: "https://images.pokemontcg.io/swsh11/3_hires.png"
-  },
-  {
-    id: "3",
-    name: "Mewtwo GX",
-    price: 24.99,
-    image: "https://images.pokemontcg.io/swsh10/9_hires.png"
-  }
+  { name: "Charizard EX", price: 120, image: "https://i.imgur.com/b2bVdVL.png" },
+  { name: "Pikachu VMAX", price: 80, image: "https://i.imgur.com/7ZjX5lE.png" },
+  { name: "Mewtwo GX", price: 100, image: "https://i.imgur.com/zJrQZP4.png" }
 ];
 
+const cardsContainer = document.querySelector('.cards');
+const searchInput = document.getElementById('search');
 let cart = [];
 
-// 🛒 Render shop
-function renderShop(filter = "") {
-  const shop = document.getElementById("shop");
-  shop.innerHTML = "";
-
-  const filtered = products.filter(p =>
-    p.name.toLowerCase().includes(filter.toLowerCase())
-  );
-
-  filtered.forEach(p => {
-    const card = document.createElement("div");
-    card.className = "card";
+// Render products
+function renderProducts(productsToRender) {
+  cardsContainer.innerHTML = '';
+  productsToRender.forEach(p => {
+    const card = document.createElement('div');
+    card.classList.add('card');
     card.innerHTML = `
       <img src="${p.image}" alt="${p.name}" />
-      <h2>${p.name}</h2>
-      <p>$${p.price.toFixed(2)}</p>
-      <button onclick="addToCart('${p.id}')">Add to Cart</button>
+      <h3>${p.name}</h3>
+      <p>$${p.price}</p>
+      <button>Add to Cart</button>
     `;
-    shop.appendChild(card);
+    card.querySelector('button').addEventListener('click', () => {
+      cart.push(p);
+      updateCheckout();
+    });
+    cardsContainer.appendChild(card);
   });
 }
 
-// ➕ Add to cart
-function addToCart(id) {
-  const item = products.find(p => p.id === id);
-  if (item) {
-    cart.push(item);
-    alert(`${item.name} added to cart!`);
-  }
-}
-
-// 💳 Checkout
-document.getElementById("checkoutBtn").addEventListener("click", () => {
+// Update checkout info
+function updateCheckout() {
+  const info = document.getElementById('checkout-info');
   if (cart.length === 0) {
-    alert("Your cart is empty!");
+    info.textContent = "No items in cart.";
   } else {
-    let total = cart.reduce((sum, item) => sum + item.price, 0).toFixed(2);
-    alert(`You bought ${cart.length} cards for $${total}!`);
-    cart = [];
+    let total = cart.reduce((sum, item) => sum + item.price, 0);
+    info.textContent = `Cart: ${cart.length} items - Total: $${total}`;
   }
-});
-
-// 🔍 Search
-document.getElementById("searchBar").addEventListener("input", e => {
-  renderShop(e.target.value);
-});
-
-// ⚡ Lightning
-function flashLightning() {
-  const lightning = document.querySelector(".lightning");
-  lightning.classList.add("flash");
-  setTimeout(() => lightning.classList.remove("flash"), 100);
 }
 
-setInterval(() => {
-  if (Math.random() > 0.7) flashLightning();
-}, 400);
+// Search products
+searchInput.addEventListener('input', () => {
+  const query = searchInput.value.toLowerCase();
+  const filtered = products.filter(p => p.name.toLowerCase().includes(query));
+  renderProducts(filtered);
+});
 
-// 🚀 Init
-window.onload = () => renderShop();
+// Initial render
+renderProducts(products);
+
+// Contact form submit
+document.getElementById('contact-form').addEventListener('submit', (e) => {
+  e.preventDefault();
+  alert("Thank you! Message sent.");
+  e.target.reset();
+});
