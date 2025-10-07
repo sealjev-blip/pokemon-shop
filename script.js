@@ -4,6 +4,15 @@ const searchBar = document.getElementById('searchBar');
 const productGrid = document.querySelector('.product-grid');
 const allCards = Array.from(productGrid.querySelectorAll('.card'));
 
+// Hamburger menu
+const hamburger = document.getElementById('hamburger');
+const navLinks = document.querySelector('.nav-links');
+
+hamburger.addEventListener('click', () => {
+  navLinks.classList.toggle('active');
+  hamburger.classList.toggle('toggle');
+});
+
 let cart = [];
 
 // Add to Cart buttons

@@ -12,21 +12,37 @@ body {
   overflow-x: hidden;
 }
 
-/* Lightning Background */
+/* ⚡ Lightning Animated Background */
 .lightning-bg {
   position: fixed;
   top: 0;
   left: 0;
-  width: 200%;
-  height: 200%;
-  background: repeating-radial-gradient(circle, rgba(255,255,255,0.05) 0 2px, transparent 2px 20px);
-  animation: flash 2s infinite;
+  width: 100%;
+  height: 100%;
+  background: #050505;
   z-index: -1;
+  overflow: hidden;
+}
+
+.lightning-bg::before,
+.lightning-bg::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0; left: 0;
+  background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+  animation: flash 2s infinite;
+  opacity: 0;
+}
+
+.lightning-bg::after {
+  animation-delay: 1s;
 }
 
 @keyframes flash {
-  0%, 80%, 100% { transform: translate(0,0); opacity: 0.05; }
-  85%, 95% { transform: translate(-50px,20px); opacity: 1; }
+  0%, 90%, 100% { opacity: 0; }
+  50% { opacity: 1; }
 }
 
 /* Navbar */
@@ -39,6 +55,7 @@ body {
   position: sticky;
   top: 0;
   z-index: 100;
+  box-shadow: 0 0 10px #0ff;
 }
 
 .navbar .logo {
@@ -51,6 +68,7 @@ body {
   width: 50px;
   height: 50px;
   border-radius: 50%;
+  box-shadow: 0 0 10px #0ff;
 }
 
 .nav-links {
@@ -70,7 +88,7 @@ body {
 .nav-links li a:hover {
   background: #0ff;
   color: #000;
-  box-shadow: 0 0 10px #0ff;
+  box-shadow: 0 0 20px #0ff;
 }
 
 .nav-right {
@@ -95,24 +113,40 @@ body {
   font-weight: bold;
   cursor: pointer;
   transition: 0.3s;
+  box-shadow: 0 0 10px #0ff;
 }
 
 .nav-right button:hover {
   background: #00f;
   color: #fff;
+  box-shadow: 0 0 20px #0ff;
+}
+
+/* Hamburger menu */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+}
+
+.hamburger div {
+  width: 25px;
+  height: 3px;
+  background: #0ff;
+  transition: 0.3s;
 }
 
 /* Home Section */
 .home {
   text-align: center;
   padding: 4rem 2rem;
-  background: linear-gradient(180deg, #111, #222);
 }
 
 .home h2 {
   font-size: 2rem;
   margin-bottom: 1rem;
-  text-shadow: 0 0 5px #0ff;
+  text-shadow: 0 0 10px #0ff;
 }
 
 .home p {
@@ -139,18 +173,25 @@ body {
   padding: 1rem;
   width: 200px;
   text-align: center;
-  box-shadow: 0 0 5px #0ff;
+  box-shadow: 0 0 10px #0ff;
   transition: 0.3s;
 }
 
 .card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 0 15px #0ff;
+  box-shadow: 0 0 25px #0ff, 0 0 50px #0ff inset;
 }
 
 .card img {
   width: 100%;
   border-radius: 10px;
+  box-shadow: 0 0 15px #0ff;
+  transition: 0.3s;
+}
+
+.card img:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 30px #0ff;
 }
 
 /* Contact Section */
@@ -174,13 +215,29 @@ footer {
   padding: 1rem;
   background: #111;
   margin-top: 2rem;
+  box-shadow: 0 0 10px #0ff inset;
 }
 
 /* Responsive */
 @media (max-width: 768px) {
+  .hamburger {
+    display: flex;
+  }
+
   .nav-links {
+    position: absolute;
+    top: 70px;
+    left: -100%;
     flex-direction: column;
     gap: 0.5rem;
+    width: 100%;
+    background: #111;
+    transition: 0.3s;
+    padding: 1rem 0;
+  }
+
+  .nav-links.active {
+    left: 0;
   }
 
   .nav-right {
