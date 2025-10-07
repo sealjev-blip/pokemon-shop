@@ -11,7 +11,7 @@ const checkoutBtn = document.getElementById('checkoutBtn');
 
 let cart = [];
 
-// Render products dynamically (so search works)
+// Render products dynamically
 function renderProducts(items) {
   productGrid.innerHTML = '';
   items.forEach(p => {
