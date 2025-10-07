@@ -1,11 +1,13 @@
+// Get elements
 const checkoutBtn = document.getElementById('checkoutBtn');
 const searchBar = document.getElementById('searchBar');
-const cards = Array.from(document.querySelectorAll('.card'));
+const productGrid = document.querySelector('.product-grid');
+const allCards = Array.from(productGrid.querySelectorAll('.card'));
 
 let cart = [];
 
 // Add to Cart buttons
-cards.forEach(card => {
+allCards.forEach(card => {
   const btn = card.querySelector('button');
   btn.addEventListener('click', () => {
     const name = card.querySelector('h3').innerText;
@@ -22,14 +24,19 @@ checkoutBtn.addEventListener('click', () => {
     return;
   }
   const total = cart.reduce((sum,item)=>sum+item.price,0);
-  alert(`Cart: ${cart.length} item(s)\nTotal: $${total}`);
+  let items = cart.map(i => i.name).join(', ');
+  alert(`Cart Items: ${items}\nTotal: $${total}`);
 });
 
 // Search functionality
 searchBar.addEventListener('input', () => {
   const query = searchBar.value.toLowerCase();
-  cards
-
-
-
-
+  allCards.forEach(card => {
+    const name = card.querySelector('h3').innerText.toLowerCase();
+    if(name.includes(query)){
+      card.style.display = 'block';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+});
