@@ -1,0 +1,208 @@
+/* Global */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  color: white;
+  background: #050505;
+  overflow-x: hidden;
+}
+
+/* ⚡ Lightning Background Animation */
+.lightning-bg {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: radial-gradient(circle, #0ff 0%, transparent 70%), radial-gradient(circle, #ff00ff 0%, transparent 80%);
+  mix-blend-mode: screen;
+  animation: lightning 3s infinite ease-in-out;
+  z-index: -1;
+  opacity: 0.2;
+}
+
+@keyframes lightning {
+  0%, 100% { opacity: 0.2; filter: brightness(1); }
+  50% { opacity: 0.6; filter: brightness(3); }
+}
+
+/* 🧭 Navbar */
+.navbar {
+  position: sticky;
+  top: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 2rem;
+  background: rgba(10, 10, 30, 0.7);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
+  z-index: 100;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo h1 {
+  font-size: 1.6rem;
+  background: linear-gradient(90deg, #00eaff, #ff00ff, #ffea00);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: glowShift 4s infinite linear;
+}
+
+.pokeball-logo {
+  width: 35px;
+  height: 35px;
+  margin-right: 10px;
+}
+
+@keyframes glowShift {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: white;
+  font-weight: 500;
+  position: relative;
+  transition: 0.3s;
+}
+
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0%;
+  height: 2px;
+  background: linear-gradient(90deg, #00c8ff, #ff00ff);
+  transition: width 0.3s;
+}
+
+.nav-links a:hover::after {
+  width: 100%;
+}
+
+.nav-links a:hover {
+  color: #00c8ff;
+  text-shadow: 0 0 10px #00c8ff;
+}
+
+/* Search + Checkout */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+#searchBar {
+  padding: 0.4rem 0.7rem;
+  border-radius: 8px;
+  border: none;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  width: 150px;
+  transition: 0.3s;
+}
+
+#searchBar:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 0 10px #00eaff;
+}
+
+#checkoutBtn {
+  background: linear-gradient(90deg, #ffea00, #ff00ff);
+  border: none;
+  padding: 0.5rem 1rem;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+#checkoutBtn:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 20px #ff00ff;
+}
+
+/* Sections */
+.home, .shop, .contact {
+  text-align: center;
+  padding: 4rem 1rem;
+}
+
+.shop h2 {
+  color: #ffea00;
+}
+
+/* Product Cards */
+.product-grid {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  padding: 1rem;
+  width: 200px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0,255,255,0.2);
+  transition: 0.3s;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px #00eaff;
+}
+
+.card img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.card button {
+  margin-top: 0.5rem;
+  background: linear-gradient(90deg, #00c8ff, #ff00ff);
+  border: none;
+  padding: 0.5rem;
+  color: white;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.card button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 15px #00c8ff;
+}
+
+/* Contact */
+.contact a {
+  color: #00eaff;
+  text-decoration: none;
+}
+
+.contact a:hover {
+  text-shadow: 0 0 10px #00eaff;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 1rem;
+  background: rgba(10,10,30,0.8);
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
