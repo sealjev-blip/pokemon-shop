@@ -1,18 +1,20 @@
-// Sample products
+// Product data
 const products = [
-  { name: "Charizard EX", price: 120, image: "https://i.imgur.com/b2bVdVL.png" },
-  { name: "Pikachu VMAX", price: 80, image: "https://i.imgur.com/7ZjX5lE.png" },
-  { name: "Mewtwo GX", price: 100, image: "https://i.imgur.com/zJrQZP4.png" }
+  { name: "Charizard EX", price: 120, image: "charizard.jpeg" },
+  { name: "Pikachu VMAX", price: 80, image: "pikachu.jpeg" },
+  { name: "Mewtwo GX", price: 100, image: "mewtwo.jpeg" }
 ];
 
-const cardsContainer = document.querySelector('.cards');
-const searchInput = document.getElementById('search');
+const productGrid = document.querySelector('.product-grid');
+const searchBar = document.getElementById('searchBar');
+const checkoutBtn = document.getElementById('checkoutBtn');
+
 let cart = [];
 
-// Render products
-function renderProducts(productsToRender) {
-  cardsContainer.innerHTML = '';
-  productsToRender.forEach(p => {
+// Render products dynamically (so search works)
+function renderProducts(items) {
+  productGrid.innerHTML = '';
+  items.forEach(p => {
     const card = document.createElement('div');
     card.classList.add('card');
     card.innerHTML = `
@@ -25,34 +27,24 @@ function renderProducts(productsToRender) {
       cart.push(p);
       updateCheckout();
     });
-    cardsContainer.appendChild(card);
+    productGrid.appendChild(card);
   });
 }
 
-// Update checkout info
-function updateCheckout() {
-  const info = document.getElementById('checkout-info');
-  if (cart.length === 0) {
-    info.textContent = "No items in cart.";
-  } else {
-    let total = cart.reduce((sum, item) => sum + item.price, 0);
-    info.textContent = `Cart: ${cart.length} items - Total: $${total}`;
-  }
-}
-
-// Search products
-searchInput.addEventListener('input', () => {
-  const query = searchInput.value.toLowerCase();
+// Search functionality
+searchBar.addEventListener('input', () => {
+  const query = searchBar.value.toLowerCase();
   const filtered = products.filter(p => p.name.toLowerCase().includes(query));
   renderProducts(filtered);
 });
 
+// Checkout button
+function updateCheckout() {
+  let total = cart.reduce((sum, item) => sum + item.price, 0);
+  alert(`Cart: ${cart.length} item(s)\nTotal: $${total}`);
+}
+
+checkoutBtn.addEventListener('click', updateCheckout);
+
 // Initial render
 renderProducts(products);
-
-// Contact form submit
-document.getElementById('contact-form').addEventListener('submit', (e) => {
-  e.preventDefault();
-  alert("Thank you! Message sent.");
-  e.target.reset();
-});
